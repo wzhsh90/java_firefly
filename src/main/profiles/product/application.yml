@@ -1,0 +1,7 @@
+#基础配置
+spring:
+  application:
+    name: firefly
+  profiles:
+    active:  common,database, server
+

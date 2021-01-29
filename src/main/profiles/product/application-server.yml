@@ -1,0 +1,20 @@
+#服务器参数配置
+server:
+  port: 8081
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+  freemarker.suffix: .ftl
+  freemarker.cache: true
+  freemarker.request-context-attribute: request #freemarker使用request上下文
+  freemarker.settings.number_format: 0.## #默认整数不格式化，小数两位
+  freemarker.settings.datetime_format: yyyy-MM-dd HH:mm:ss
+  web:
+    resources:
+      chain:
+        strategy:
+          content:
+            enabled: true
+            paths: /**
+

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ymy.firefly.company.mapper.CompanyMapper">
+
+    <resultMap id="resultCompanyEntity" type="CompanyEntity">
+        <result property="id" column="id"/>
+        <result property="comName" column="com_name"/>
+        <result property="comDesc" column="com_desc"/>
+    </resultMap>
+
+    <sql id="base_col">
+    id,com_name,com_desc
+    </sql>
+
+    <select id="list" resultMap="resultCompanyEntity">
+        SELECT
+        <include refid="base_col"/>
+        FROM sys_company_t
+        <where>
+            <if test="name!=''">
+                and com_name like #{name}
+            </if>
+        </where>
+        limit #{pageIndex},#{pageSize}
+    </select>
+    <select id="listCount" resultType="int">
+        SELECT
+        count(*)
+        FROM sys_company_t
+        <where>
+            <if test="name!=''">
+                and com_name like #{name}
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,28 @@
+
+#日志配置
+logging:
+  config: classpath:logging/base.xml
+  file:
+    name: logs/${spring.application.name}.log
+#  level:
+#    root: ERROR
+
+
+#内嵌tomcat配置
+#server.tomcat.uri-encoding: UTF-8
+
+#http encoding
+#spring.http.encoding:
+#      charset: UTF-8
+#      enabled: true
+#      force: true
+
+server.compression.enabled: true
+
+#converters 默认jackson
+#spring.http.converters.preferred-json-mapper=gson
+
+mybatis:
+  config-location: classpath:mybatis/config.xml
+  mapper-locations: classpath:mybatis/mapper/**/*Mapper.xml
+#  executorType = 执行模式。默认是 SIMPLE

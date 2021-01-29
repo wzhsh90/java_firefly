@@ -1,0 +1,8 @@
+#数据库连接配置
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/running?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai&useSSL=false&autoReconnect=true
+    username: root
+    password: zxcvbnm123
+    hikari:
+      connection-init-sql: SET NAMES utf8mb4

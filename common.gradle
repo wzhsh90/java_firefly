@@ -1,0 +1,64 @@
+noArg {
+    annotation("com.ymy.firefly.common.KotlinNoArg")
+}
+
+
+compileKotlin {
+    kotlinOptions {
+        freeCompilerArgs = ["-Xjsr305=strict"]
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        freeCompilerArgs = ["-Xjsr305=strict"]
+        jvmTarget = "1.8"
+    }
+}
+
+def commonCompilerArgs = [
+        "-Xlint:serial", "-Xlint:cast", "-Xlint:classfile", "-Xlint:dep-ann",
+        "-Xlint:divzero", "-Xlint:empty", "-Xlint:finally", "-Xlint:overrides",
+        "-Xlint:path", "-Xlint:processing", "-Xlint:static", "-Xlint:try", "-Xlint:-options"
+]
+
+compileJava.options*.compilerArgs = commonCompilerArgs +
+        ["-Xlint:varargs", "-Xlint:fallthrough", "-Xlint:rawtypes",
+         "-Xlint:deprecation", "-Xlint:unchecked", "-Xlint:all"]//, "-Werror"]
+
+compileTestJava.options*.compilerArgs = commonCompilerArgs +
+        ["-Xlint:-varargs", "-Xlint:-fallthrough", "-Xlint:-rawtypes",
+         "-Xlint:-deprecation", "-Xlint:-unchecked"]
+
+compileJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    options.encoding = 'UTF-8'
+}
+
+compileTestJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    options.encoding = 'UTF-8'
+    options.compilerArgs += "-parameters"
+}
+
+jar {
+    manifest.attributes["Created-By"] =
+            "${System.getProperty("java.version")} (${System.getProperty("java.specification.vendor")})"
+    manifest.attributes["Implementation-Title"] = rootProject.name
+    manifest.attributes["Implementation-Version"] = rootProject.version
+    manifest.attributes["Built-By"] = System.getProperty('user.name')
+    manifest.attributes["Built-JDK"] = System.getProperty('java.version')
+    manifest.attributes["Build-Time"] = new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+}
+
+def profile = System.getProperty("profile") ?: "dev"
+sourceSets {
+    main {
+        resources {
+            srcDirs = ["src/main/resources", "src/main/profiles/$profile"]
+        }
+    }
+}
+
